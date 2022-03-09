@@ -1,0 +1,7 @@
+<suite name="Jungle Socks Test Suite" thread-count="4" parallel="tests">
+    <test verbose="2" name="Jungle Socks Sanity Tests" annotations="JDK" parallel="classes">
+        <classes>
+            <class name="com.junglesocks.tests.JungleSocksTests" />
+        </classes>
+    </test>
+</suite>
