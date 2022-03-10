@@ -4,6 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.asserts.SoftAssert;
 
+import java.util.Map;
+
 public class Homepage extends Page {
 
     private static final By title = By.cssSelector("h1");
@@ -37,10 +39,6 @@ public class Homepage extends Page {
         super(driver);
     }
 
-    public String getTitle() {
-        return utils.getText(title);
-    }
-
     public void clickCheckoutBtn() {
         utils.click(checkout_btn);
     }
@@ -70,7 +68,7 @@ public class Homepage extends Page {
         }
     }
 
-    public void verifyHomepageContent() {
+    public void verifyHomepageContent(Map<String, String> testDataMap) {
         SoftAssert sa = new SoftAssert();
         try {
             sa.assertEquals(utils.getText(title),"Welcome To Jungle Socks!","Header wrong on homepage");
@@ -79,18 +77,18 @@ public class Homepage extends Page {
             sa.assertEquals(utils.getText(product_table_column2_header),"Price","product table column 2 header wrong on homepage");
             sa.assertEquals(utils.getText(product_table_column3_header),"In Stock","product table column 3 header wrong on homepage");
             sa.assertEquals(utils.getText(product_table_column4_header),"Quantity","product table column 4 header wrong on homepage");
-            sa.assertEquals(utils.getText(product1_name),"zebra","product 1 name wrong on homepage");
-            sa.assertEquals(utils.getText(product2_name),"lion","product 2 name wrong on homepage");
-            sa.assertEquals(utils.getText(product3_name),"elephant","product 3 name wrong on homepage");
-            sa.assertEquals(utils.getText(product4_name),"giraffe","product 4 name wrong on homepage");
-            sa.assertEquals(utils.getText(product1_price),"13","product 1 price wrong on homepage");
-            sa.assertEquals(utils.getText(product2_price),"20","product 2 price wrong on homepage");
-            sa.assertEquals(utils.getText(product3_price),"35","product 3 price wrong on homepage");
-            sa.assertEquals(utils.getText(product4_price),"17","product 4 price wrong on homepage");
-            sa.assertEquals(utils.getText(product1_in_stock_value),"23","product 1 stock value wrong on homepage");
-            sa.assertEquals(utils.getText(product2_in_stock_value),"12","product 2 stock value wrong on homepage");
-            sa.assertEquals(utils.getText(product3_in_stock_value),"3","product 3 stock value wrong on homepage");
-            sa.assertEquals(utils.getText(product4_in_stock_value),"15","product 4 stock value wrong on homepage");
+            sa.assertEquals(utils.getText(product1_name),testDataMap.get("product1Name"),"product 1 name wrong on homepage");
+            sa.assertEquals(utils.getText(product2_name),testDataMap.get("product2Name"),"product 2 name wrong on homepage");
+            sa.assertEquals(utils.getText(product3_name),testDataMap.get("product3Name"),"product 3 name wrong on homepage");
+            sa.assertEquals(utils.getText(product4_name),testDataMap.get("product4Name"),"product 4 name wrong on homepage");
+            sa.assertEquals(utils.getText(product1_price),testDataMap.get("product1Price"),"product 1 price wrong on homepage");
+            sa.assertEquals(utils.getText(product2_price),testDataMap.get("product2Price"),"product 2 price wrong on homepage");
+            sa.assertEquals(utils.getText(product3_price),testDataMap.get("product3Price"),"product 3 price wrong on homepage");
+            sa.assertEquals(utils.getText(product4_price),testDataMap.get("product4Price"),"product 4 price wrong on homepage");
+            sa.assertEquals(utils.getText(product1_in_stock_value),testDataMap.get("product1InStock"),"product 1 stock value wrong on homepage");
+            sa.assertEquals(utils.getText(product2_in_stock_value),testDataMap.get("product2InStock"),"product 2 stock value wrong on homepage");
+            sa.assertEquals(utils.getText(product3_in_stock_value),testDataMap.get("product3InStock"),"product 3 stock value wrong on homepage");
+            sa.assertEquals(utils.getText(product4_in_stock_value),testDataMap.get("product4InStock"),"product 4 stock value wrong on homepage");
             sa.assertEquals(utils.getText(product1_quantity_value),"","product 1 quantity value wrong on homepage");
             sa.assertEquals(utils.getText(product2_quantity_value),"","product 2 quantity value wrong on homepage");
             sa.assertEquals(utils.getText(product3_quantity_value),"","product 3 quantity value wrong on homepage");

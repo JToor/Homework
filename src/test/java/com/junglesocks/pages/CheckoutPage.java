@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.asserts.SoftAssert;
 
 import java.text.DecimalFormat;
+import java.util.Map;
 
 public class CheckoutPage extends Page {
 
@@ -37,29 +38,27 @@ public class CheckoutPage extends Page {
     private static final By elephant_line_item = By.cssSelector(".line_item.elephant");
     private static final By giraffe_line_item = By.cssSelector(".line_item.giraffe");
 
-
     private static final DecimalFormat df = new DecimalFormat("0.00");
-
 
     public CheckoutPage(WebDriver driver) {
         super(driver);
     }
 
-    public void verifyCheckoutPageContent() {
+    public void verifyCheckoutPageContent(Map<String, String> testDataMap) {
         SoftAssert sa = new SoftAssert();
         try {
             sa.assertEquals(utils.getText(title),"Please Confirm Your Order","Header wrong on checkout page");
             sa.assertEquals(utils.getText(product_table_column1_header),"Name","product table column 1 header wrong on checkout page");
             sa.assertEquals(utils.getText(product_table_column2_header),"Price","product table column 2 header wrong on checkout page");
             sa.assertEquals(utils.getText(product_table_column3_header),"Quantity","product table column 3 header wrong on checkout page");
-            sa.assertEquals(utils.getText(product1_name),"zebra","product 1 name wrong on checkout page");
-            sa.assertEquals(utils.getText(product2_name),"lion","product 2 name wrong on checkout page");
-            sa.assertEquals(utils.getText(product3_name),"elephant","product 3 name wrong on checkout page");
-            sa.assertEquals(utils.getText(product4_name),"giraffe","product 4 name wrong on checkout page");
-            sa.assertEquals(utils.getText(product1_price),"13","product 1 price wrong on checkout page");
-            sa.assertEquals(utils.getText(product2_price),"20","product 2 price wrong on checkout page");
-            sa.assertEquals(utils.getText(product3_price),"35","product 3 price wrong on checkout page");
-            sa.assertEquals(utils.getText(product4_price),"17","product 4 price wrong on checkout page");
+            sa.assertEquals(utils.getText(product1_name),testDataMap.get("product1Name"),"product 1 name wrong on checkout page");
+            sa.assertEquals(utils.getText(product2_name),testDataMap.get("product2Name"),"product 2 name wrong on checkout page");
+            sa.assertEquals(utils.getText(product3_name),testDataMap.get("product3Name"),"product 3 name wrong on checkout page");
+            sa.assertEquals(utils.getText(product4_name),testDataMap.get("product4Name"),"product 4 name wrong on checkout page");
+            sa.assertEquals(utils.getText(product1_price),testDataMap.get("product1Price"),"product 1 price wrong on checkout page");
+            sa.assertEquals(utils.getText(product2_price),testDataMap.get("product2Price"),"product 2 price wrong on checkout page");
+            sa.assertEquals(utils.getText(product3_price),testDataMap.get("product3Price"),"product 3 price wrong on checkout page");
+            sa.assertEquals(utils.getText(product4_price),testDataMap.get("product4Price"),"product 4 price wrong on checkout page");
             sa.assertEquals(utils.getText(product1_quantity_value),"1","product 1 quantity value wrong on checkout page");
             sa.assertEquals(utils.getText(product2_quantity_value),"2","product 2 quantity value wrong on checkout page");
             sa.assertEquals(utils.getText(product3_quantity_value),"3","product 3 quantity value wrong on checkout page");
@@ -110,10 +109,6 @@ public class CheckoutPage extends Page {
     public void verifyItemHavingQuantityLessThanOneAreDisplayed() {
         SoftAssert sa = new SoftAssert();
         try {
-            sa.assertEquals(utils.getText(title),"Please Confirm Your Order","Header wrong on checkout page");
-            sa.assertEquals(utils.getText(product_table_column1_header),"Name","product table column 1 header wrong on checkout page");
-            sa.assertEquals(utils.getText(product_table_column2_header),"Price","product table column 2 header wrong on checkout page");
-            sa.assertEquals(utils.getText(product_table_column3_header),"Quantity","product table column 3 header wrong on checkout page");
             sa.assertTrue(utils.isElementPresent(lion_line_item),"lion item not present on checkout page");
             sa.assertFalse(utils.isElementPresent(zebra_line_item),"zebra item present on checkout page");
             sa.assertFalse(utils.isElementPresent(elephant_line_item),"elephant item present on checkout page");
@@ -124,11 +119,11 @@ public class CheckoutPage extends Page {
         sa.assertAll();
     }
 
-    public void verifyErrorPageIsDisplayed() {
+    public void verifyErrorPageIsDisplayed(Map<String, String> testDataMap) {
         SoftAssert sa = new SoftAssert();
         try {
-            sa.assertEquals(utils.getText(title),"We're sorry, but something went wrong.","Error title wrong");
-            sa.assertEquals(utils.getText(subtitle),"We've been notified about this issue and we'll take a look at it shortly.","Error subtitle wrong");
+            sa.assertEquals(utils.getText(title),testDataMap.get("error_title"),"Error title wrong");
+            sa.assertEquals(utils.getText(subtitle),testDataMap.get("error_subtitle"),"Error subtitle wrong");
         } catch (Exception e) {
             sa.fail("Unable to verify checkout page content: " + e.getMessage());
         }
